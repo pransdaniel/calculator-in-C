@@ -1,0 +1,423 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+
+typedef struct { // merupakan struct untuk kalkulator dasar
+    double angka;
+    double hasil;
+    char operator;
+} operasi; // karena menggunakan typedef, operasi dalah nama structnya
+
+int factorial(int n) { // merupakan deklarasi dari fungsi faktorial
+    if (n == 0) 
+        return 1; // jika 0 = 1 maka akan menghasilkan 1 
+    else
+        return n * factorial(n - 1);
+}
+
+//Fungsi untuk konversi suhu
+float convertCelsiusToFahrenheit(float celsius) { //Fungsi mengubah suhu celcius menjadi fahrenheit
+    return (celsius * 9 / 5) + 32;
+}
+
+float convertCelsiusToReamur(float celsius) { //Fungsi mengubah suhu celcius menjadi reamur
+    return celsius * 4 / 5;
+}
+
+float convertCelsiusToKelvin(float celsius) { //Fungsi mengubah suhu celcius menjadi kelvin
+    return celsius + 273.15;
+}
+
+float convertFahrenheitToCelsius(float fahrenheit) { //Fungsi mengubah suhu fahrenheit menjadi celcius
+    return (fahrenheit - 32) * 5 / 9;
+}
+
+float convertFahrenheitToReamur(float fahrenheit) { //Fungsi mengubah suhu fahrenheit menjadi reamur
+    return (fahrenheit - 32) * 4 / 9;
+}
+
+float convertFahrenheitToKelvin(float fahrenheit) { //Fungsi mengubah suhu fahrenheit menjadi kelvin
+    return (fahrenheit + 459.67) * 5 / 9;
+}
+
+float convertReamurToCelsius(float reamur) { //Fungsi mengubah suhu reamur menjadi celcius
+    return reamur * 5 / 4;
+}
+
+float convertReamurToFahrenheit(float reamur) { //Fungsi mengubah suhu reamur menjadi fahrenheit
+    return (reamur * 9 / 4) + 32;
+}
+
+float convertReamurToKelvin(float reamur) { //Fungsi mengubah suhu reamur menjadi kelvin
+    return (reamur * 5 / 4) + 273.15;
+}
+
+float convertKelvinToCelsius(float kelvin) {//Fungsi mengubah suhu kelvin menjadi celcius
+    return kelvin - 273.15;
+}
+
+float convertKelvinToFahrenheit(float kelvin) { //Fungsi mengubah suhu kelvin menjadi fahrenheit
+    return (kelvin * 9 / 5) - 459.67;
+}
+
+float convertKelvinToReamur(float kelvin) { //Fungsi mengubah suhu kelvin menjadi reamur
+    return (kelvin - 273.15) * 4 / 5;
+}
+
+
+// Fungsi untuk konversi jarak 
+double centimetertometer(double a) { // Fungsi yang mengubah satuan jarak centimeter ke meter
+    return a / 100.0;
+}
+
+double metertokilometer(double a) { // Fungsi yang mengubah satuan jarak meter ke kilometer
+    return a / 1000.0;
+}
+
+double kilometertometer(double a) { // Fungsi yang mengubah satuan jarak kilometer ke meter
+    return a * 1000.0;
+}
+
+double kilometertocentimeter(double a) { // Fungsi yang mengubah satuan jarak kilometer ke centimeter
+    return a * 100000.0;
+}
+
+double centimetertokilometer(double a) { // Fungsi yang mengubah satuan jarak centimeter ke kilometer
+    return a / 100000.0;
+}
+
+double metertocentimeter(double a) { // Fungsi yang mengubah satuan jarak meter ke centimeter
+    return a * 100.0;
+}
+
+//Fungsi konversi mata uang
+double dollartorupiah(double a) { // Fungsi yang mengubah nilai mata uang dollar ke rupiah
+    return a * 14985.0;
+}
+
+double rupihtodollar(double a) {// Fungsi yang mengubah nilai mata uang rupiah ke dollar
+    return a / 14985.0;
+}
+
+double yuantorupiah(double a) {// Fungsi yang mengubah nilai mata uang yuan ke rupiah
+    return a * 2112.72;
+}
+
+double rupiahtoyuan(double a) {// Fungsi yang mengubah nilai mata uang rupiah ke yuan
+    return a / 2112.72;
+}
+
+double eurotorupiah(double a) {// Fungsi yang mengubah nilai mata uang euro ke rupiah
+    return a / 100000.0;
+}
+
+double rupiahtoeuro(double a) {// Fungsi yang mengubah nilai mata uang rupiah ke euro
+    return a * 100.0;
+}
+
+int main() { // Merupakan fungsi utama dari sebuah program
+    int pilihan, i, j;
+    double a, b, hasil, jarak;
+    float suhu;
+    double num[100];
+    char op[100];
+    int count = 0;
+    int exitFlag = 0;
+    printf("==============================\n");
+    printf("Selamat datang di MyCalculator\n");
+    printf("  Created by Prans Simarmata\n");
+    printf("==============================\n");
+
+    while (!exitFlag) {
+    printf("Pilih operasi: \n");
+    printf("1. Kalkulator dasar\n");
+    printf("2. Kalkulator scientific\n");
+    printf("3. Kalkulator Trigonometri\n");
+    printf("4. Kalkulator Konversi Suhu\n");
+    printf("5. Kalkulator Konversi Jarak\n");
+    printf("6. Kalkulator Konversi Mata Uang\n");
+    printf("7. Keluar\n");
+
+    printf("Masukkan pilihan: "); //Merupakan sebuah perintah untuk memprint string 
+    scanf("%d", &pilihan); //Digunakan untuk memasukkan inputan kita 
+    getchar();
+
+    switch (pilihan) { // Menjalankan blok kode sesuai dengan pilihan yang dimasukkan
+        case 1:
+            char input[300]; // inputan dimasukkan kedalam array
+            printf("Masukkan nilai: ");
+            fgets(input, sizeof(input), stdin); // fungsi untuk memasukkan inputan dan spasi di baca oleh fungsi ini
+
+            char* token = strtok(input, " ");
+
+            double hasil = atoi(token);
+
+            num[0] = hasil; // array num[0] meupakan hasil, num[0] merupakan elemen pertama
+            while (token != NULL) {
+                count++;
+                operasi p; // memnerikan nama struct operasi dengan p
+                token = strtok(NULL, " ");
+                if (token != NULL) {
+                    p.operator = token[0];
+                    token = strtok(NULL, " ");
+                    p.angka = atof(token);
+
+                if (p.operator == '*' || p.operator == '/') { // melakukan operasi if else dengan kondisi operator perkalian dan pembagian
+                    if (p.operator == '*'){
+
+                        num[i] = num[i] * p.angka; // jika ketemu operasi perkalian maka akan dilakukan operasi perkalian terlebih dahulu
+                        hasil = num[i];
+                    } else {
+                        num[i] = num[i] / p.angka; // jika tidak maka akan dilakukan operasi pembagian
+                        hasil = num[i];
+                    }
+                    
+                }   else {op[i] = p.operator;
+                        num[i + 1] = p.angka;
+                        i++;
+                }
+
+                hasil = num[0];
+                for (int i = 0; i < count; i++){ // melakukan looping terhadap inputan 
+                    if (op[i] == '+' || op[i] == '-'){
+                        if (op[i] == '+'){ 
+                            hasil += num[i + 1];// jika ketemu operasi penjumlahan maka akan dilakukan operasi penjumlahan
+                        }else {
+                            hasil -= num[i + 1];// jika ketemu operasi pengurangan maka akan dilakukan operasi pengurangan
+                        }
+                    }
+                }
+            }
+        }
+                num[0] = 0;
+                for (int i = 0; i < count; i++){ // melakukan loopingan untuk operasi dan angka, ketika angka dan operasi telah digunakan maka akan dianggap nol
+                    op[i] = 0;
+                    num[i+1] = 0;
+                }
+            printf("Hasil: %.2f\n", hasil); // fungsi yang akan mengeluarkan output
+            continue; // digunakan untuk perulangan jadi setelah dioperasikan tidak langsung selesai namun kembali ke menu awal
+        case 2:
+            printf("\n==== Kalkulator Scientific ====\n");
+            printf("1. Pangkat               \n");
+            printf("2. Faktorial             \n");
+            printf("3. Square Root           \n");
+            printf("4. Cubic Root            \n");
+            printf("5. Logaritma             \n");
+            printf("6. Sisa Pembagian        \n");
+
+            printf("\nPilih Operasi  : ");
+            scanf("%d", &pilihan); // fungsi untuk user memasukkan inputan berupa angka
+
+            printf("Masukkan nilai   : ");
+            scanf("%lf", &a); // fungsi untuk user memasukkan inputan berupa angka
+
+            switch (pilihan) {
+                case 1:
+                    printf("Enter the exponent           : ");
+                    scanf("%lf", &b);
+                    hasil = pow(a, b); // melakukan operasi pangkat dengan memasukkan basis dan pangkat
+                    printf("Hasil   : %.2lf\n", hasil);
+                    break;
+                case 2:
+                    hasil = factorial((int) a); // melakukan fungsi faktorial dimana ini merupakan pemanggilan fungsi yang telah didefinisikan di atas
+                    printf("Hasil   : %.2lf\n", hasil);
+                    break;
+                case 3:
+                    hasil = sqrt(a); // merupakan fungsi akar pangkat dua dari library math.h
+                    printf("Hasil   : %.2lf\n", hasil);
+                    break;
+                case 4:
+                    hasil = cbrt(a); //merupakan fungsi akar pangkat tiga dari library math.h
+                    printf("Hasil   : %.2lf\n", hasil);
+                    break;
+                case 5:
+                    hasil = log10(a);// merupakan fungsi logaritma dengan basis 10
+                    printf("Hasil   : %.2lf\n", hasil);
+                    break;
+                case 6:
+                    hasil = fmod(a, b);// merupakan fungsi untuk operasi sisa bagi
+                    printf("Hasil   : %.2lf\n", hasil);
+                    break;
+                default:
+                    printf("\nPilihan Invalid\n");
+                    break;
+            }
+            continue;// digunakan untuk perulangan jadi setelah dioperasikan tidak langsung selesai namun kembali ke menu awal
+        case 3:
+            printf("==== Kalkulator Trigonometri ====\n");
+            printf("1. Sin\n");
+            printf("2. Cos\n");
+            printf("3. Tan\n");
+            printf("4. Cosec\n");
+            printf("5. Sec\n");
+            printf("6. Cot\n");
+
+            printf("\nMasukkan Pilihan  : ");
+            scanf("%d", &pilihan); // fungsi untuk user memasukkan inputan berupa angka
+
+            printf("Masukkan Nilai      : ");
+            scanf("%lf", &a);// fungsi untuk user memasukkan inputan berupa angka
+
+                switch(pilihan){
+                    case 1:
+                    hasil = sin(a * 3.14 / 180); //merupakan fungsi trigonometri bawaan dari library math.h
+                    printf("Sin result               : %.2lf\n", hasil);
+                    break;
+
+                    case 2:
+                    hasil = cos(a * 3.14 / 180); //merupakan fungsi trigonometri bawaan dari library math.h
+                    printf("Cos result                : %.2lf\n", hasil);
+                    break;
+
+                    case 3:
+                    hasil = tan(a * 3.14 / 180); //merupakan fungsi trigonometri bawaan dari library math.h
+                    printf("Tan result                   : %.2lf\n", hasil);
+                    break;
+
+                    case 4:
+                    hasil = 1 / sin(a * 3.14 / 180); //merupakan fungsi trigonometri bawaan dari library math.h
+                    printf("Cosec result                   : %.2lf\n", hasil);
+                    break;
+
+                    case 5:
+                    hasil = 1 / cos(a * 3.14 / 180); //merupakan fungsi trigonometri bawaan dari library math.h
+                    printf("Sec result                   : %.2lf\n", hasil);
+                    break;
+
+                    case 6:
+                    hasil = 1 / tan(a * 3.14 / 180); //merupakan fungsi trigonometri bawaan dari library math.h
+                    printf("Cot result                   : %.2lf\n", hasil);
+                    break;
+
+                    default:
+                    printf("\nPilihan Invalid\n");
+                    break;
+                }
+            continue; // digunakan untuk perulangan jadi setelah dioperasikan tidak langsung selesai namun kembali ke menu awal
+        case 4:
+            printf("===== Kalkulator Konversi Suhu =====\n");
+            printf("Pilih satuan suhu yang akan dikonversi:\n");
+            printf("1. Celsius\n");
+            printf("2. Fahrenheit\n");
+            printf("3. Reamur\n");
+            printf("4. Kelvin\n");
+            printf("Masukkan pilihan: ");
+            scanf("%d", &pilihan); // fungsi untuk user memasukkan inputan berupa angka
+
+            printf("Masukkan suhu: ");
+            scanf("%f", &suhu); // fungsi untuk user memasukkan inputan berupa angka
+
+                switch (pilihan) {
+                    case 1:
+                        printf("\nHasil konversi:\n");
+                        printf("%.2f Celsius = %.2f Fahrenheit\n", suhu, convertCelsiusToFahrenheit(suhu)); // merupakan fungsi konversi suhu dari celcius ke fahrenheit
+                        printf("%.2f Celsius = %.2f Reamur\n", suhu, convertCelsiusToReamur(suhu)); // merupakan fungsi konversi suhu dari celcius ke reamur
+                        printf("%.2f Celsius = %.2f Kelvin\n", suhu, convertCelsiusToKelvin(suhu));// merupakan fungsi konversi suhu dari celcius ke kelvin
+                        break;
+                    case 2:
+                        printf("\nHasil konversi:\n");
+                        printf("%.2f Fahrenheit = %.2f Celsius\n", suhu, convertFahrenheitToCelsius(suhu)); //merupakan fungsi konversi suhu dari fahrenheit ke celcius 
+                        printf("%.2f Fahrenheit = %.2f Reamur\n", suhu, convertFahrenheitToReamur(suhu)); //merupakan fungsi konversi suhu dari fahrenheit ke reamur 
+                        printf("%.2f Fahrenheit = %.2f Kelvin\n", suhu, convertFahrenheitToKelvin(suhu)); //merupakan fungsi konversi suhu dari fahrenheit ke kelvin 
+                        break;
+                    case 3:
+                        printf("\nHasil konversi:\n");
+                        printf("%.2f Reamur = %.2f Celsius\n", suhu, convertReamurToCelsius(suhu)); //merupakan fungsi konversi suhu dari reamur ke celcius 
+                        printf("%.2f Reamur = %.2f Fahrenheit\n", suhu, convertReamurToFahrenheit(suhu)); //merupakan fungsi konversi suhu dari reamur ke fahrenheit
+                        printf("%.2f Reamur = %.2f Fahrenheit\n", suhu, convertReamurToKelvin(suhu)); //merupakan fungsi konversi suhu dari reamur ke kelvin
+                        break;
+                    case 4: 
+                        printf("\nHasil konversi:\n");
+                        printf("%.2f Kelvin = %.2f Celsius\n", suhu, convertKelvinToCelsius(suhu)); //merupakan fungsi konversi suhu dari kelvin ke celcius 
+                        printf("%.2f Kelvin = %.2f Fahrenheit\n", suhu, convertKelvinToReamur(suhu)); //merupakan fungsi konversi suhu dari kelvin ke reamur
+                        printf("%.2f Kelvin = %.2f Fahrenheit\n", suhu, convertKelvinToFahrenheit(suhu)); //merupakan fungsi konversi suhu dari kelvin ke fahrenheit
+                }
+            continue;// digunakan untuk perulangan jadi setelah dioperasikan tidak langsung selesai namun kembali ke menu awal
+        case 5:
+                printf("===== Kalkulator Konversi jarak =====\n");
+                printf("Masukkan jarak: ");
+                scanf("%lf", &jarak); // fungsi untuk user memasukkan angka
+
+                printf("1. centimeter ke meter\n");
+                printf("2. meter ke kilometer\n");
+                printf("3. kilometer ke meter\n");
+                printf("4. kilometer ke centimeter\n");
+                printf("5. centimeter ke kilometer\n");
+                printf("6. meter ke centimeter\n");
+                printf("Pilihan: ");
+                scanf("%d", &pilihan);
+
+                switch (pilihan) {
+                    case 1:
+                        printf("%.2lf cm = %.2lf m\n", jarak, centimetertometer(jarak));
+                        break;
+                    case 2:
+                        printf("%.2lf m = %.2lf km\n", jarak, metertokilometer(jarak));
+                        break;
+                    case 3:
+                        printf("%.2lf km = %.2lf m\n", jarak, kilometertometer(jarak));
+                        break;
+                    case 4:
+                        printf("%.2lf km = %.2lf cm\n", jarak, kilometertocentimeter(jarak));
+                        break;
+                    case 5:
+                        printf("%.2lf cm = %.2lf km\n", jarak, centimetertokilometer(jarak));
+                        break;
+                    case 6:
+                        printf("%.2lf m = %.2lf cm\n", jarak, metertocentimeter(jarak));
+                        break;
+                    default:
+                        printf("Pilihan tidak valid.\n");
+                       
+                } 
+                continue; // digunakan untuk perulangan jadi setelah dioperasikan tidak langsung selesai namun kembali ke menu awal
+        case 6:
+                printf("===== Kalkulator Mata Uang =====\n");
+                printf("Masukkan angka: ");
+                scanf("%lf", &a); // fungsi untuk user memasukkan angka
+
+                printf("Pilih konversi mata uang\n");
+                printf("1. Dollar ke Rupiah\n");
+                printf("2. Rupiah ke Dollar\n");
+                printf("3. Yuan ke Rupiah\n");
+                printf("4. Rupiah ke Yuan\n");
+                printf("5. Euro ke Rupiah\n");
+                printf("6. Rupiah ke Euro\n");
+                printf("Pilihan: ");
+                scanf("%d", &pilihan);
+
+                switch (pilihan) {
+                    case 1:
+                        printf("%.4lf USD = Rp. %.4lf \n", a, dollartorupiah(a));
+                        break;
+                    case 2:
+                        printf("Rp. %.4lf = %.4lf USD\n", a, rupihtodollar(a));
+                        break;
+                    case 3:
+                        printf("%.4lf CNY = Rp. %.4lf \n", a, yuantorupiah(a));
+                        break;
+                    case 4:
+                        printf("Rp. %.4lf = %.4lf CNY\n", a, rupiahtoyuan(a));
+                        break;
+                    case 5:
+                        printf("%.4lf EUR = Rp. %.4lf \n", a, eurotorupiah(a));
+                        break;
+                    case 6:
+                        printf("Rp. %.4lf = %.4lf EUR\n", a, rupiahtoeuro(a));
+                        break;
+                        printf("Pilihan tidak valid.\n");
+                    
+                }
+                continue; // digunakan untuk perulangan jadi setelah dioperasikan tidak langsung selesai namun kembali ke menu awal
+        case 7:
+                exitFlag = 1; 
+                printf("Terima kasih telah menggunakan MyCalculator. Sampai jumpa!\n");
+                break;
+                default:
+                printf("Pilihan tidak valid\n");
+                break;       
+            return 0;
+        }
+    }
+}
